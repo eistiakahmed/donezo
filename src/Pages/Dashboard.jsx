@@ -1,74 +1,55 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { IoMdNotificationsOutline } from 'react-icons/io';
-import { IoSearchOutline } from 'react-icons/io5';
-import { LuMail } from 'react-icons/lu';
-import DemoProfile from "../assets/demo_profile.png"
+import { TiPlus } from 'react-icons/ti';
+import DashboardNav from '../Components/DashboardNav';
+import Overview from '../Components/Overview';
+import AnalyticsCard from '../Components/AnalyticsCard';
+import { IoVideocam } from 'react-icons/io5';
+
 
 export default function Dashboard() {
-  const searchInputRef = useRef(null);
-  const [userEmail, setUserEmail] = useState('');
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    const email = localStorage.getItem('userEmail') || 'user@example.com';
-    const name = localStorage.getItem('userName') || 'Demo User';
-    setUserEmail(email);
-    setUserName(name);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   return (
     <div className="">
-      <div className="bg-[#f7f7f7] rounded-2xl w-full h-22 mb-8 flex justify-between items-center px-6">
-        <div className="relative ">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <IoSearchOutline size={24} />
+      <DashboardNav />
+      <section className="px-6  bg-[#f7f7f7] rounded-2xl p-2">
+        <div className="flex justify-between items-center pt-3">
+          <div className="">
+            <h1 className="text-4xl font-semibold">Dashboard</h1>
+            <p className=" text-gray-600">Welcome to your dashboard!</p>
           </div>
-          <input
-            ref={searchInputRef}
-            type="text"
-            className="bg-white w-full pl-12 pr-20 py-3 rounded-xl outline-none border-2 border-gray-200 focus:border-green-500 text-gray-700 placeholder-gray-400"
-            placeholder="Search Products"
-          />
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <kbd className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-sm font-semibold">
-              ⌘ F
-            </kbd>
+          <div className=" flex">
+            <button className="px-4 py-2 bg-linear-to-br from-green-800 to-green-500 text-white font-medium rounded-2xl flex items-center hover:scale-105 transition-all">
+              <TiPlus />
+              Add Product
+            </button>
+            <button className="px-4 py-2 border-2 border-green-700 font-medium text-green-800 hover:bg-linear-to-t from-green-800 to-green-500 hover:text-white hover:border-0 rounded-2xl ml-2 transition-all">
+              Import Data
+            </button>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="bg-white w-12 h-12 rounded-full flex justify-center items-center hover:bg-gray-100 cursor-pointer transition">
-            <LuMail size={22} />
+
+        <Overview />
+        <div className="grid grid-cols-4 gap-4">
+          <div className="col-span-2">
+            <AnalyticsCard />
           </div>
-          <div className="bg-white w-12 h-12 rounded-full flex justify-center items-center hover:bg-gray-100 cursor-pointer transition">
-            <IoMdNotificationsOutline size={24} />
-          </div>
-          <div className="flex items-center gap-2 ml-1">
-            <img
-              src={DemoProfile}
-              alt="User Avatar"
-              className="w-12 h-12 rounded-full"
-            />
-            <div className="text-left">
-              <p className="text-sm font-semibold text-gray-800">{userName}</p>
-              <p className="text-xs text-gray-500">{userEmail}</p>
+          <div className="col-span-1 bg-white rounded-3xl p-6 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Reminders</h2>
+            <div className="flex flex-col h-full justify-center space-y-3">
+              <h4 className="text-2xl font-semibold text-green-800">
+                Meeting With Arc Company
+              </h4>
+              <h5 className="text-sm text-gray-500">Time: 2:00 pm - 4:00 pm</h5>
+
+              <a
+                href="https://meet.google.com/landing"
+                className="flex items-center gap-2 justify-center px-6 py-3 bg-linear-to-br from-green-800 to-green-500 text-white font-medium rounded-2xl hover:scale-105 transition-all shadow-md"
+              >
+                <IoVideocam size={24} />
+                Start Meeting
+              </a>
             </div>
           </div>
         </div>
-      </div>
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-      <p className="mt-4 text-gray-600">Welcome to your dashboard!</p>
+      </section>
     </div>
   );
 }
