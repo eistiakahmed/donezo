@@ -10,7 +10,7 @@ export default function DashboardLayout() {
         <Logo />
         <Sidebar />
       </aside>
-      <main className="col-span-10 border border-red-400 rounded-2xl">
+      <main className="col-span-10 rounded-2xl">
         <Outlet />
       </main>
     </div>

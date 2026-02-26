@@ -36,6 +36,7 @@ export default function Login() {
       if (response.ok) {
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('userEmail', email);
+        localStorage.setItem('userName', data.user?.name || 'Demo User');
         navigate('/');
       } else {
         setError(data.message || 'Login failed. Please try again.');
