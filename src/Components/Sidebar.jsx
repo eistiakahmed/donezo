@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import {
   LayoutDashboard,
   Calendar,
@@ -11,7 +11,9 @@ import { BiSolidShoppingBags } from 'react-icons/bi';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { IoHelpBuoyOutline } from 'react-icons/io5';
 
-export default function Sidebar() {
+export default function Sidebar({ onLinkClick }) {
+  const navigate = useNavigate();
+
   const menuItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/products', label: 'Products', icon: BiSolidShoppingBags },
@@ -23,8 +25,22 @@ export default function Sidebar() {
   const generalItems = [
     { path: '/settings', label: 'Settings', icon: Settings },
     { path: '/help', label: 'Help', icon: IoHelpBuoyOutline },
-    { path: '/logout', label: 'Logout', icon: IoLogOutOutline },
   ];
+
+  const handleLogout = () => {
+    // Clear all authentication data from localStorage
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    
+    // Close sidebar if on mobile
+    if (onLinkClick) {
+      onLinkClick();
+    }
+    
+    // Navigate to login page
+    navigate('/login');
+  };
 
   return (
     <>
@@ -39,6 +55,7 @@ export default function Sidebar() {
                 <NavLink
                   to={item.path}
                   end={item.path === '/'}
+                  onClick={onLinkClick}
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-6 py-3 transition-colors relative ${
                       isActive
@@ -73,6 +90,7 @@ export default function Sidebar() {
               <li key={item.path}>
                 <NavLink
                   to={item.path}
+                  onClick={onLinkClick}
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-6 py-3 transition-colors relative ${
                       isActive
@@ -95,6 +113,15 @@ export default function Sidebar() {
                 </NavLink>
               </li>
             ))}
+            <li>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-3 px-6 py-3 transition-colors relative text-gray-400 hover:text-red-600"
+              >
+                <IoLogOutOutline className="w-5 h-5" />
+                <span>Logout</span>
+              </button>
+            </li>
           </ul>
         </div>
       </nav>

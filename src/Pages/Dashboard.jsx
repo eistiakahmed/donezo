@@ -6,8 +6,9 @@ import AnalyticsCard from '../Components/AnalyticsCard';
 import { IoVideocam } from 'react-icons/io5';
 import ProductsCard from '../Components/ProductsCard';
 import UserCard from '../Components/UserCard';
-import ProductsWork from '../Components/ProductsWork';
 import TimeTracker from '../Components/TimeTracker';
+import UserProgress from '../Components/UserProgress';
+
 
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -15,7 +16,9 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const res = await fetch('https://task-api-eight-flax.vercel.app/api/dashboard');
+        const res = await fetch(
+          'https://task-api-eight-flax.vercel.app/api/dashboard'
+        );
         const result = await res.json();
         setDashboardData(result);
       } catch (error) {
@@ -32,8 +35,12 @@ export default function Dashboard() {
       <section className="px-3 sm:px-4 md:px-6 bg-[#f7f7f7] rounded-2xl p-2">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-3 gap-4">
           <div className="">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">Dashboard</h1>
-            <p className="text-sm sm:text-base text-gray-600">Welcome to your dashboard!</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold">
+              Dashboard
+            </h1>
+            <p className="text-sm sm:text-base text-gray-600">
+              Welcome to your dashboard!
+            </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             <button className="px-4 py-2 bg-linear-to-br from-green-800 to-green-500 text-white font-medium rounded-2xl flex items-center justify-center hover:scale-105 transition-all">
@@ -59,7 +66,9 @@ export default function Dashboard() {
               <h4 className="text-lg sm:text-2xl font-semibold text-green-800">
                 Meeting With Arc Company
               </h4>
-              <h5 className="text-xs sm:text-sm text-gray-500">Time: 2:00 pm - 4:00 pm</h5>
+              <h5 className="text-xs sm:text-sm text-gray-500">
+                Time: 2:00 pm - 4:00 pm
+              </h5>
 
               <a
                 href="https://meet.google.com/landing"
@@ -82,7 +91,8 @@ export default function Dashboard() {
             <UserCard data={dashboardData?.users} />
           </div>
           <div className="sm:col-span-2 lg:col-span-4">
-            <ProductsWork data={dashboardData?.users} />
+            <UserProgress data={dashboardData?.users} />
+            
           </div>
         </div>
       </section>

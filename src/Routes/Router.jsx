@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import AuthLayout from '../Layouts/AuthLayout';
 import Products from '../Pages/Products';
+import ProductDetail from '../Pages/ProductDetail';
 import Dashboard from '../Pages/Dashboard';
 import Calendar from '../Pages/Calendar';
 import Analytics from '../Pages/Analytics';
@@ -9,6 +10,7 @@ import Settings from '../Pages/Settings';
 import Help from '../Pages/Help';
 import Login from '../Pages/Login';
 import Users from '../Pages/Users';
+import UserDetail from '../Pages/UserDetail';
 
 
 export const router = createBrowserRouter([
@@ -35,6 +37,10 @@ export const router = createBrowserRouter([
         element: <Products />,
       },
       {
+        path: 'products/:id',
+        element: <ProductDetail />,
+      },
+      {
         path: 'calendar',
         element: <Calendar />,
       },
@@ -45,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: 'users',
         element: <Users />,
+      },
+      {
+        path: 'users/:id',
+        element: <UserDetail />,
       },
       {
         path: 'settings',
