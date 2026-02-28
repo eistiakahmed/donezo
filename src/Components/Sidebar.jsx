@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router';
-import { LayoutDashboard, Settings } from 'lucide-react';
+import { LayoutDashboard,  Settings } from 'lucide-react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbBrandGoogleAnalytics } from 'react-icons/tb';
 import { BiSolidShoppingBags } from 'react-icons/bi';
@@ -37,7 +37,7 @@ export default function Sidebar({ onLinkClick }) {
 
   return (
     <>
-      <nav className="flex flex-col h-full py-6 mt-5">
+      <nav className="flex flex-col h-full py-6 mt-5 bg-[#f7f7f7]">
         <div className="">
           <h3 className="px-6 mb-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
             MENU
