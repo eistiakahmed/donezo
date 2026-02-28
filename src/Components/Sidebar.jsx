@@ -1,15 +1,11 @@
 import { NavLink, useNavigate } from 'react-router';
-import {
-  LayoutDashboard,
-  Calendar,
-  Settings,
-  
-} from 'lucide-react';
+import { LayoutDashboard, Settings } from 'lucide-react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { TbBrandGoogleAnalytics } from 'react-icons/tb';
 import { BiSolidShoppingBags } from 'react-icons/bi';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { IoHelpBuoyOutline } from 'react-icons/io5';
+import { TbDeviceDesktopAnalytics } from 'react-icons/tb';
 
 export default function Sidebar({ onLinkClick }) {
   const navigate = useNavigate();
@@ -17,7 +13,7 @@ export default function Sidebar({ onLinkClick }) {
   const menuItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/products', label: 'Products', icon: BiSolidShoppingBags },
-    { path: '/calendar', label: 'Calendar', icon: Calendar },
+    { path: '/overview', label: 'Overview', icon: TbDeviceDesktopAnalytics },
     { path: '/analytics', label: 'Analytics', icon: TbBrandGoogleAnalytics },
     { path: '/users', label: 'Users', icon: BsPeopleFill },
   ];
@@ -28,17 +24,14 @@ export default function Sidebar({ onLinkClick }) {
   ];
 
   const handleLogout = () => {
-    // Clear all authentication data from localStorage
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
-    
-    // Close sidebar if on mobile
+
     if (onLinkClick) {
       onLinkClick();
     }
-    
-    // Navigate to login page
+
     navigate('/login');
   };
 

@@ -72,7 +72,7 @@ export default function ProductDetail() {
         
         <button
           onClick={() => navigate('/products')}
-          className="flex items-center gap-2 text-gray-600 hover:text-green-700 mb-6 transition-colors"
+          className="flex items-center gap-2 text-gray-600 hover:text-green-700 mb-6 mt-2 transition-colors"
         >
           <FiArrowLeft size={20} />
           <span className="font-medium">Back to Products</span>

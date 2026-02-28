@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import DashboardNav from '../Components/DashboardNav';
 import { BiSolidShoppingBags } from 'react-icons/bi';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 
 export default function Products() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,6 +27,15 @@ export default function Products() {
 
     fetchProducts();
   }, []);
+
+  // Handle search query from navigation
+  useEffect(() => {
+    if (location.state?.searchQuery) {
+      setSearchTerm(location.state.searchQuery);
+      // Clear the state after using it
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());

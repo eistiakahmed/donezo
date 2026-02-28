@@ -4,13 +4,13 @@ import AuthLayout from '../Layouts/AuthLayout';
 import Products from '../Pages/Products';
 import ProductDetail from '../Pages/ProductDetail';
 import Dashboard from '../Pages/Dashboard';
-import Calendar from '../Pages/Calendar';
 import Analytics from '../Pages/Analytics';
 import Settings from '../Pages/Settings';
 import Help from '../Pages/Help';
 import Login from '../Pages/Login';
 import Users from '../Pages/Users';
 import UserDetail from '../Pages/UserDetail';
+import OverviewPage from '../Pages/OverviewPage';
 
 
 export const router = createBrowserRouter([
@@ -41,8 +41,8 @@ export const router = createBrowserRouter([
         element: <ProductDetail />,
       },
       {
-        path: 'calendar',
-        element: <Calendar />,
+        path: 'overview',
+        element: <OverviewPage />,
       },
       {
         path: 'analytics',
