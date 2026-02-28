@@ -1,27 +1,13 @@
 import { useEffect, useState } from 'react';
 
-export default function AnalyticsCard() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function AnalyticsCard({ data }) {
+  const [loading, setLoading] = useState(!data);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          'https://task-api-eight-flax.vercel.app/api/analytics'
-        );
-        const result = await res.json();
-        console.log('Analytics data:', result);
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching analytics data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   const getDayLabel = (dateString) => {
     const date = new Date(dateString);
@@ -29,7 +15,7 @@ export default function AnalyticsCard() {
   };
 
   const getMaxValue = () => {
-    if (data.length === 0) return 100;
+    if (!data || data.length === 0) return 100;
     return Math.max(...data.map((item) => item.views));
   };
 
@@ -40,13 +26,13 @@ export default function AnalyticsCard() {
 
   const getBarColor = (index) => {
     const colors = [
-      'bg-gradient-to-t from-green-400/30 to-green-400/30',
-      'bg-gradient-to-t from-green-600 to-green-500',
-      'bg-gradient-to-t from-green-500 to-green-400',
-      'bg-gradient-to-t from-green-700 to-green-600',
-      'bg-gradient-to-t from-green-400/30 to-green-400/30',
-      'bg-gradient-to-t from-green-400/30 to-green-400/30',
-      'bg-gradient-to-t from-green-400/30 to-green-400/30',
+      'bg-linear-to-t from-green-400/30 to-green-400/30',
+      'bg-linear-to-t from-green-600 to-green-500',
+      'bg-linear-to-t from-green-500 to-green-400',
+      'bg-linear-to-t from-green-700 to-green-600',
+      'bg-linear-to-t from-green-400/30 to-green-400/30',
+      'bg-linear-to-t from-green-400/30 to-green-400/30',
+      'bg-linear-to-t from-green-400/30 to-green-400/30',
     ];
     return colors[index] || colors[0];
   };
@@ -76,13 +62,13 @@ export default function AnalyticsCard() {
     <div className="bg-white rounded-3xl p-8 shadow-sm">
       <h2 className="text-2xl font-bold text-gray-800 mb-8">Analytics</h2>
 
-      {data.length === 0 ? (
+      {!data || data.length === 0 ? (
         <div className="text-center text-gray-500 py-12">
           No analytics data available
         </div>
       ) : (
         <div className="flex items-end justify-between gap-4 h-50 relative">
-          {data.slice(0, 7).map((item, index) => {
+          {data && data.slice(0, 7).map((item, index) => {
             const heightPercent = getBarHeight(item.views);
             const isPattern = getBarPattern(index);
             const showPercentage = index === 2;

@@ -1,25 +1,14 @@
 import { useEffect, useState } from 'react';
 import { FiArrowUpRight, FiTrendingUp } from 'react-icons/fi';
 
-export default function Overview() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function Overview({ data }) {
+  const [loading, setLoading] = useState(!data);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`https://task-api-eight-flax.vercel.app/api/overview`);
-        const result = await res.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error fetching overview data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchData();
-  }, []);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   const formatNumber = (num) => {
     return new Intl.NumberFormat('en-US').format(num);
