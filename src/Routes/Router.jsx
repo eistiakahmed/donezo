@@ -1,6 +1,7 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import AuthLayout from '../Layouts/AuthLayout';
+import PrivateRoute from '../Components/PrivateRoute';
 import Products from '../Pages/Products';
 import ProductDetail from '../Pages/ProductDetail';
 import Dashboard from '../Pages/Dashboard';
@@ -26,7 +27,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
@@ -65,5 +70,9 @@ export const router = createBrowserRouter([
         element: <Help />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Navigate to="/login" replace />,
   },
 ]);
